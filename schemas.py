@@ -1,6 +1,6 @@
 from bson import ObjectId
 from pydantic import BaseModel, Field, EmailStr
-from typing import Optional, List
+from typing import Optional
 
 
 class PyObjectId(ObjectId):
@@ -52,5 +52,27 @@ class UpdateUserModel(BaseModel):
                 "name": "Jane Doe",
                 "email": "jdoe@example.mail",
                 "avatar": "someavatarstring"
+            }
+        }
+
+
+class QuestionModel(BaseModel):
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    title: str = Field(...)
+    categories: Optional[str] = Field(...)
+    text: str = Field(...)
+    addedDate: str = Field(...)
+
+
+    class Config:
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
+        schema_extra = {
+            "example": {
+                "title": "Question #999",
+                "categories": "AbstractThinking, Logic",
+                "text": "Do we have infinite number of infinities?",
+                "addedDate": "10.10.2010"
             }
         }

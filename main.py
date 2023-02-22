@@ -2,7 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from config import settings
-from routers import users
+from routers import users, questions
+from database import db
 
 
 app = FastAPI()
@@ -21,9 +22,11 @@ app.add_middleware(
 )
 
 
-app.include_router(users.router, tags=['Users'], prefix='/api/users')
+app.include_router(users.user_router, tags=['Users'], prefix='/api/users')
+app.include_router(questions.question_router, tags=['Questions'], prefix='/api/questions')
 
 
 @app.get("/api/healthchecker")
 def root():
-    return {"message": "Welcome to FastAPI with MongoDB"}
+
+    return {"message": "Welcome to FastAPI with MongoDB", "result": ""}
