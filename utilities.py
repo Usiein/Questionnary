@@ -3,7 +3,6 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 
 
-
 # fake database collection
 fake_users_db = {
     "johndoe": {
