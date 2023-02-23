@@ -1,6 +1,6 @@
 from bson import ObjectId
 from pydantic import BaseModel, Field, EmailStr
-from typing import Optional
+from typing import Optional, Union
 
 
 class PyObjectId(ObjectId):
@@ -19,6 +19,21 @@ class PyObjectId(ObjectId):
     def __modify_schema__(cls, field_schema):
         field_schema.update(type="string")
 
+
+# Class used to resolve user authentication
+class UserAuthentication(BaseModel):
+    username: str
+    email: Union[EmailStr, None] = None
+    full_name: Union[str, None] = None
+    disabled: Union[bool, None] = None
+
+    class Config:
+        json_encoders = {ObjectId: str}
+
+
+# Class used for
+class UserInDB(UserAuthentication):
+    hashed_password: str
 
 class UserModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")

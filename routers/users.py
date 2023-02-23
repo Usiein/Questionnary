@@ -1,7 +1,7 @@
 from datetime import datetime
 #from fastapi import Depends, HTTPException, status, APIRouter, Response
 #from pymongo.collection import ReturnDocument
-from schemas import UserModel, UpdateUserModel
+from schemas import UserModel, UpdateUserModel, UserAuthentication
 from database import user_collection
 from typing import List
 
@@ -16,6 +16,10 @@ from database import db_connection_check
 
 
 user_router = APIRouter()
+
+
+# @user_router.get("/auth", response_description="Get user token", response_model=UserAuthentication)
+# async def get_user_auth():
 
 
 @user_router.post("/", response_description="Add new user", response_model=UserModel)

@@ -1,9 +1,13 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
 
 from config import settings
 from routers import users, questions
 from database import db
+from schemas import UserAuthentication
+from utilities import get_current_user, oauth2_scheme
+
 
 
 app = FastAPI()
@@ -24,6 +28,19 @@ app.add_middleware(
 
 app.include_router(users.user_router, tags=['Users'], prefix='/api/users')
 app.include_router(questions.question_router, tags=['Questions'], prefix='/api/questions')
+
+# authorization primitive prototype
+
+
+@app.get("/")
+async def get_authorized(token: str = Depends(oauth2_scheme)):
+    return {"token": token}
+
+
+# example of typical bearer token approach to get current authenticated user
+@app.get("/me")
+async def get_authed_user(current_user: UserAuthentication = Depends(get_current_user)):
+    return current_user
 
 
 @app.get("/api/healthchecker")
