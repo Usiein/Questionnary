@@ -1,8 +1,8 @@
-from schemas import QuestionModel
-from database import question_collection
+from v0.schemas import QuestionModel
+from v0.database import question_collection
 
 from fastapi import Body, HTTPException, status, APIRouter, Response
-from fastapi.responses import  JSONResponse
+from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 
 

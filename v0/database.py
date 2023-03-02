@@ -1,13 +1,13 @@
 import pymongo.errors
 import sys
 from motor.motor_asyncio import AsyncIOMotorClient
-from config import settings
+from v0.config import settings
 
 
 client = AsyncIOMotorClient(settings.DATABASE_URL)
 db = client["fastapi"]
-user_collection = db["Users"] # Collection to store user initial data
-question_collection = db["Questions"] # Collection to store questions
+user_collection = db["Users"]  # Collection to store user initial data
+question_collection = db["Questions"]  # Collection to store questions
 
 
 async def db_connection_check():

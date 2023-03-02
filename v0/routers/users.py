@@ -1,19 +1,13 @@
-from datetime import datetime
 #from fastapi import Depends, HTTPException, status, APIRouter, Response
 #from pymongo.collection import ReturnDocument
-from schemas import UserModel, UpdateUserModel, UserAuthentication
-from database import user_collection
-from typing import List
+from v0.schemas import UserModel, UpdateUserModel
+from v0.database import user_collection
 
 #from serializers.postSerializers import postEntity, postListEntity
-from bson.objectid import ObjectId
-from pymongo.errors import DuplicateKeyError
 
 from fastapi import Body, HTTPException, status, APIRouter, Response
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
-from database import db_connection_check
-
 
 user_router = APIRouter()
 

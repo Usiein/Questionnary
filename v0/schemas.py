@@ -20,6 +20,16 @@ class PyObjectId(ObjectId):
         field_schema.update(type="string")
 
 
+# model of authentication response body
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+
+class TokenData(BaseModel):
+    username: Union[str, None] = None
+
+
 # Class used to resolve user authentication
 class UserAuthentication(BaseModel):
     username: str
@@ -34,6 +44,7 @@ class UserAuthentication(BaseModel):
 # Class used for
 class UserInDB(UserAuthentication):
     hashed_password: str
+
 
 class UserModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
@@ -77,7 +88,6 @@ class QuestionModel(BaseModel):
     categories: Optional[str] = Field(...)
     text: str = Field(...)
     addedDate: str = Field(...)
-
 
     class Config:
         allow_population_by_field_name = True
